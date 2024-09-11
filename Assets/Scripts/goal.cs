@@ -11,10 +11,16 @@ public class goal : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Ball ball = GameObject.Find("ball").GetComponent<Ball>();
-        ball.loseText.enabled = true;
-        ball.rb.velocity = new Vector2(0, 0);
-        ball.held = true;
+        if (collision.gameObject.CompareTag("ball"))
+        {
+            Ball ball = GameObject.Find("ball").GetComponent<Ball>();
+            BrickGenerator bg = GameObject.Find("BrickGenerator").GetComponent<BrickGenerator>();
+            ball.loseText.enabled = true;
+            ball.rb.velocity = new Vector2(0, 0);
+            ball.held = true;
+            bg.ResetBricks();
+            bg.GenerateBricks(8, 3);
+        }
     }
 
     // Update is called once per frame
