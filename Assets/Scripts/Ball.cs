@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Ball : MonoBehaviour
 {
     float maxVelocity = 15.0f;
-    Rigidbody2D rb;
-    bool held;
+    public Rigidbody2D rb;
+    public bool held;
+    public Text loseText;
     void Start()
     {
         held = true;
+        loseText.enabled = false;
         rb = transform.GetComponent<Rigidbody2D>();
     }
 
@@ -34,6 +37,7 @@ public class Ball : MonoBehaviour
             held = false;
             float randx = Random.Range(-5, 5);
             rb.velocity = new Vector2(randx, 10);
+            loseText.enabled = false;
         }
     }
 
