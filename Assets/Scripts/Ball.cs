@@ -47,9 +47,12 @@ public class Ball : MonoBehaviour
     }
     void Launch()
     {
-        held = false;
-        float randx = Random.Range(-5, 5);
-        velocity = new Vector2(randx, 10);
+        if (held)
+        {
+            held = false;
+            float randx = Random.Range(-5, 5);
+            velocity = new Vector2(randx, 10);
+        }
     }
 
     private void Reset()
