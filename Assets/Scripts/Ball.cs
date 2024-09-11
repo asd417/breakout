@@ -11,11 +11,15 @@ public class Ball : MonoBehaviour
     public Rigidbody2D rb;
     public bool held;
     public Text loseText;
+    public TrailRenderer trail;
+
+
     void Start()
     {
         held = true;
         loseText.enabled = false;
         rb = transform.GetComponent<Rigidbody2D>();
+        trail.emitting = false;
     }
 
     void FixedUpdate()
@@ -34,6 +38,7 @@ public class Ball : MonoBehaviour
     {
         if (held)
         {
+            trail.emitting   = true;
             held = false;
             float randx = Random.Range(-5, 5);
             rb.velocity = new Vector2(randx, 10);
@@ -44,6 +49,7 @@ public class Ball : MonoBehaviour
     private void Reset()
     {
         held = true;
+        trail.emitting = false;
         rb.velocity = new Vector2(0,0);
         IsHeld();
     }
