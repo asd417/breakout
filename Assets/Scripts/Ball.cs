@@ -7,30 +7,12 @@ using UnityEngine.EventSystems;
 public class Ball : MonoBehaviour
 {
     float maxVelocity = 15.0f;
-    Vector2 velocity;
+    Rigidbody2D rb;
     bool held;
     void Start()
     {
         held = true;
-        velocity = Vector2.zero;
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        ReflectDirection(other.gameObject);
-        Debug.Log("Collided with " + other.gameObject.name);
-    }
-
-    void ReflectDirection(GameObject wall)
-    {
-        if (wall.CompareTag("wall") || wall.CompareTag("Player"))
-        {
-            velocity = new Vector2(velocity.x, -velocity.y);
-        }
-        else if (wall.CompareTag("sideWall"))
-        {
-            velocity = new Vector2(-velocity.x, velocity.y);
-        }
+        rb = transform.GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
@@ -51,24 +33,23 @@ public class Ball : MonoBehaviour
         {
             held = false;
             float randx = Random.Range(-5, 5);
-            velocity = new Vector2(randx, 10);
+            rb.velocity = new Vector2(randx, 10);
         }
     }
 
     private void Reset()
     {
         held = true;
-        velocity = Vector2.zero;
+        rb.velocity = new Vector2(0,0);
         IsHeld();
     }
 
     void InPlay()
     {
-        transform.Translate(velocity * Time.deltaTime);
-        if (velocity.magnitude > maxVelocity)
+        if (rb.velocity.magnitude > maxVelocity)
         {
             Debug.Log("SPEED OVER 1");
-            velocity = Vector2.ClampMagnitude(velocity, maxVelocity);
+            rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
         }
     }
 
