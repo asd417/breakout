@@ -32,8 +32,9 @@ public class Ball : MonoBehaviour
         {
             InPlay();
         }
-            
+
     }
+
     void Launch()
     {
         if (held)

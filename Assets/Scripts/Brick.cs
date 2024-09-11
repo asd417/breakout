@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-    int health = 1;
+    public int health = 1;
 
     void OnCollisionEnter2D(Collision2D collision)
     {
