@@ -8,6 +8,12 @@ public class PlayerController : MonoBehaviour
 {
     float velocity;
     float friction = 0.99f;
+    Ball ball;
+    void Start()
+    {
+        ball = GameObject.Find("ball").GetComponent<Ball>();
+
+    }
 
     void FixedUpdate()
     {
@@ -23,7 +29,16 @@ public class PlayerController : MonoBehaviour
         {
             velocity *= friction;
         }
-        if(Mathf.Abs(transform.position.x) > 7.0f)
+
+        if (Input.GetKey("space") || Input.GetKey("up"))
+        {
+            ball.BroadcastMessage("Launch");
+        } else if (Input.GetKey("down") || Input.GetKey("r"))
+        {
+            ball.BroadcastMessage("Reset");
+        }
+
+        if (Mathf.Abs(transform.position.x) > 7.0f)
         {
             if (transform.position.x < 0)
             {
