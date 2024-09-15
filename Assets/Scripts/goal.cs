@@ -15,7 +15,7 @@ public class goal : MonoBehaviour
         {
             Ball ball = GameObject.Find("ball").GetComponent<Ball>();
             BrickGenerator bg = GameObject.Find("BrickGenerator").GetComponent<BrickGenerator>();
-            ball.loseText.enabled = true;
+            ball.showLoseText();
             ball.rb.velocity = new Vector2(0, 0);
             ball.held = true;
             bg.ResetBricks();

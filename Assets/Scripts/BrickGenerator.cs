@@ -12,7 +12,11 @@ public class BrickGenerator : MonoBehaviour
     public GameObject prefab4;
     public GameObject prefab5;
 
-    private List<GameObject> bricks;
+    public List<GameObject> bricks;
+    public int activeBricks = 0;
+    public int maxActiveBricks = 0;
+
+    public AudioSource bgmSource;
 
     public void GenerateBricks(int x, int y)
     {
@@ -37,9 +41,40 @@ public class BrickGenerator : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        Debug.Log(bricks);
+        int count = countActiveBricks();
+
+        if (count == 0)
+        {
+            Ball ball = GameObject.Find("ball").GetComponent<Ball>();
+            ball.winState = true;
+            ball.winText.enabled = true;
+        }
+        else
+        {
+            bgmSource.pitch = 1.0f + (1.0f - ((float)count /(float)maxActiveBricks)) * 0.2f;
+            Debug.Log("pitch:" + bgmSource.pitch);
+        }
+    }
     void Start()
     {
         bricks = new List<GameObject>();
         GenerateBricks(8, 3);
+        maxActiveBricks = 24;
+
+    }
+    int countActiveBricks()
+    {
+        int count = 0;
+        foreach (GameObject obj in bricks)
+        {
+            if (obj != null) // Check if GameObject is not null (not missing)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 }
