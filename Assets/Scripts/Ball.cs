@@ -59,6 +59,8 @@ public class Ball : MonoBehaviour
     {
         if (held)
         {
+            PlayerController player = GameObject.Find("player").GetComponent<PlayerController>();
+            player.BroadcastMessage("setScore");
             trail.emitting   = true;
             held = false;
             float randx = Random.Range(-5, 5);
@@ -81,12 +83,10 @@ public class Ball : MonoBehaviour
     {
         if (rb.velocity.magnitude > maxVelocity)
         {
-            Debug.Log("SPEED OVER maxVelocity");
             rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
         }
         if (rb.velocity.magnitude < maxVelocity)
         {
-            Debug.Log("SPEED LESS THAN maxVelocity");
             rb.velocity = Vector2.ClampMagnitude(rb.velocity*1.1f, maxVelocity);
         }
     }

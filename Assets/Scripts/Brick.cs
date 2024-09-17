@@ -6,6 +6,7 @@ using UnityEngine;
 public class Brick : MonoBehaviour
 {
     public int health = 1;
+    public int score = 1;
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -14,7 +15,6 @@ public class Brick : MonoBehaviour
         {
             if(collision.transform.CompareTag("ball"))
             {
-                Debug.Log("Ball Collided");
                 health -= 1;
             }
         }
@@ -24,6 +24,8 @@ public class Brick : MonoBehaviour
     {
         if (health <= 0)
         {
+            PlayerController player = GameObject.Find("player").GetComponent<PlayerController>();
+            player.BroadcastMessage("gainScore", score);
             Destroy(gameObject);
         }
     }

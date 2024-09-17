@@ -55,7 +55,6 @@ public class BrickGenerator : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(bricks);
         int count = countActiveBricks();
 
         if (count == 0)
@@ -67,7 +66,6 @@ public class BrickGenerator : MonoBehaviour
         else
         {
             bgmSource.pitch = 1.0f + (1.0f - ((float)count /(float)maxActiveBricks)) * 0.2f;
-            Debug.Log("pitch:" + bgmSource.pitch);
         }
     }
     void Start()

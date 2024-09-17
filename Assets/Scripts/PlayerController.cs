@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.RuleTile.TilingRuleOutput;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     float velocity;
     float friction = 0.99f;
+    public int score = 0;
+    public Text scoreBoard;
     Ball ball;
     void Start()
     {
@@ -15,8 +18,23 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void gainScore(int points)
+    {
+        Debug.Log("Brick Destroyed");
+        this.score += points;
+        Debug.Log("Score" + this.score);
+    }
+
+    void setScore()
+    {
+        Debug.Log("Score Reset");
+        this.score = 0;
+        Debug.Log("Score" + this.score);
+    }
+
     void FixedUpdate()
     {
+        scoreBoard.text = score.ToString();
         if (Input.GetKey("right") || Input.GetKey("d"))
         {
             velocity += 0.01f;
